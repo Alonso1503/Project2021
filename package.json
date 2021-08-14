@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Alonso1503/PFcode/issues"
   },
-  "homepage": "https://github.com/Alonso1503/PFcode#readme"
+  "homepage": "https://github.com/Alonso1503/PFcode#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mariadb": "^2.5.4"
+  }
 }
