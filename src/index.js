@@ -6,14 +6,14 @@ const exphbs = require("express-handlebars");
 app = express();
 //Configuraciones
 app.set("port", process.env.PORT || 4000);
-app.set("views", path.join(__dirname, "views"));
+
 app.engine(
   ".hbs",
   exphbs({
     defaultLayout: "main",
-    layoutDir: path.join(app.get("views"), "layouts"),
+    layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
-    extName: ".hbs",
+    extname: ".hbs",
     helpers: require("./lib/handlebars"),
   })
 );
@@ -27,9 +27,10 @@ app.use((req, res, next) => {
   next();
 });
 //Rutas
-app.use(require("./routes"));
+app.use(require("./routes/index"));
 app.use(require("./routes/authentication"));
-app.use("links", require("./routes/links"));
+app.use("/links", require("./routes/links"));
+
 //Public
 app.use(express.static(path.join(__dirname, "public")));
 //Server
