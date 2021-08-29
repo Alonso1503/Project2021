@@ -2,9 +2,9 @@
   "name": "proyectofinal",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
