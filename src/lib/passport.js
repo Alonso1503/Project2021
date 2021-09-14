@@ -5,9 +5,38 @@ const helpers = require("./helpers");
 
 passport.use(
   "local.signin",
-  new localStrategy({}, () => {
-    return done(null);
-  })
+  new localStrategy(
+    {
+      usernameField: "username",
+      passwordField: "password",
+      passReqToCallback: true,
+    },
+    async (req, username, password, done) => {
+      const rows = await pool.query("SELECT * FROM users WHERE Usuario = ?", [
+        username,
+      ]);
+
+      if (rows.length > 0) {
+        const user = rows[0];
+
+        console.log(password);
+        console.log(user.Password);
+
+        const validpassword = await helpers.matchPassword(
+          password,
+          user.Password
+        );
+        console.log(validpassword);
+        if (validpassword) {
+          done(null, user, req.flash("success", "Welcome" + user.username));
+        } else {
+          done(null, false, req.flash("message", "Contraseña incorrecta"));
+        }
+      } else {
+        return done(null, false, req.flash("message", "Usuario no existe"));
+      }
+    }
+  )
 );
 
 passport.use(
