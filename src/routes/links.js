@@ -15,7 +15,6 @@ router.post("/add", isLoggedIn, async (req, res) => {
     description,
     User_Id: req.user.Id,
   };
-  console.log(req.body);
   await pool.query("INSERT INTO links set ?", [newLink]);
   req.flash("success", "Link actualizado correctamente");
   res.redirect("/links");

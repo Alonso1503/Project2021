@@ -7,28 +7,21 @@ passport.use(
   "local.signin",
   new localStrategy(
     {
-      usernameField: "username",
-      passwordField: "password",
+      usernameField: "cedula",
+      passwordField: "clave",
       passReqToCallback: true,
     },
     async (req, username, password, done) => {
-      const rows = await pool.query("SELECT * FROM users WHERE Usuario = ?", [
+      const rows = await pool.query("SELECT * FROM persona WHERE cedula = ?", [
         username,
       ]);
 
       if (rows.length > 0) {
         const user = rows[0];
 
-        console.log(password);
-        console.log(user.Password);
-
-        const validpassword = await helpers.matchPassword(
-          password,
-          user.Password
-        );
-        console.log(validpassword);
+        const validpassword = await helpers.matchPassword(password, user.clave);
         if (validpassword) {
-          done(null, user, req.flash("success", "Welcome " + user.Usuario));
+          done(null, user, req.flash("success", "Welcome " + user.nombre));
         } else {
           done(null, false, req.flash("message", "Contraseña incorrecta"));
         }
@@ -43,28 +36,41 @@ passport.use(
   "local.signup",
   new localStrategy(
     {
-      usernameField: "username",
-      passwordField: "password",
+      usernameField: "nombre",
+      passwordField: "clave",
       passReqToCallback: true,
     },
-    async (req, username, password, done) => {
-      const { fullname } = req.body;
-      const newUser = {
-        Usuario: username,
-        Password: password,
-        Fullname: fullname,
+    async (req, nombre, clave, done) => {
+      const {
+        cedula,
+        apellido1,
+        apellido2,
+        fechaDeNacimiento,
+        tipoDeSangre,
+        tipoDeUsuario,
+      } = req.body;
+      const nuevoUsuario = {
+        cedula,
+        nombre,
+        clave,
+        apellido1,
+        apellido2,
+        fechaDeNacimiento,
+        tipoDeSangre,
+        tipoDeUsuario,
       };
-      newUser.Password = await helpers.encryptPassword(password);
-      const result = await pool.query("INSERT INTO users SET ?", [newUser]);
-      newUser.Id = result.insertId;
-      return done(null, newUser);
+      nuevoUsuario.clave = await helpers.encryptPassword(clave);
+      const result = await pool.query("INSERT INTO persona SET ?", [
+        nuevoUsuario,
+      ]);
+      return done(null, nuevoUsuario);
     }
   )
 );
 passport.serializeUser((user, done) => {
-  done(null, user.Id);
+  done(null, user.cedula);
 });
-passport.deserializeUser(async (Id, done) => {
-  rows = await pool.query("SELECT * FROM users WHERE Id = ?", [Id]);
+passport.deserializeUser(async (cedula, done) => {
+  rows = await pool.query("SELECT * FROM persona WHERE cedula = ?", [cedula]);
   done(null, rows[0]);
 });

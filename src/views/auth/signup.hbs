@@ -3,41 +3,80 @@
     <div class="col-md-4 mx-auto">
       <div class="card text-center">
         <div class="card-header">
-          <h3>SignUp</h3>
+          <h3>Registro de Usuarios</h3>
         </div>
         <div class="card-body">
           <form action="/signup" method="POST">
 
-            <div class="form-group my-4">
+            <div class="form-group my-4 my-3">
               <input
-                type="type"
-                name="fullname"
-                placeholder="Full Name"
+                type="number"
+                name="cedula"
+                placeholder="Cédula"
                 class="form-control"
                 autofocus
               />
             </div>
-            <div class="form-group my-4">
+            <div class="form-group my-4 my-3">
               <input
                 type="text"
-                name="username"
-                placeholder="Username"
+                name="nombre"
+                placeholder="Nombre"
                 class="form-control"
               />
             </div>
             <div class="form-group my-4">
               <input
                 type="password"
-                name="password"
-                placeholder="Password"
+                name="clave"
+                placeholder="Contraseña"
                 class="form-control"
               />
             </div>
-            <div class="form-group my-4">
+            <div class="form-group my-4 my-3">
+              <input
+                type="text"
+                name="apellido1"
+                placeholder="Primer apellido"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group my-4 my-3">
+              <input
+                type="text"
+                name="apellido2"
+                placeholder="Segundo apellido"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group my-4 my-3">
+              <input
+                type="date"
+                name="fechaDeNacimiento"
+                placeholder="Fecha de nacimiento"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group my-4 my-3">
+              <input
+                type="text"
+                name="tipoDeSangre"
+                placeholder="Tipo de sangre"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group my-4 my-3">
+              <input
+                type="text"
+                name="tipoDeUsuario"
+                placeholder="Tipo de Usuario"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group my-4 my-3">
               <button class="btn btn-success btn-block">
-                SingUp
+                Registrar
               </button>
-
             </div>
           </form>
         </div>
