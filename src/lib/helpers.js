@@ -7,9 +7,9 @@ helpers.encryptPassword = async (clave) => {
   return hash;
 };
 
-helpers.matchPassword = async (clave, claveguardada) => {
+helpers.matchPassword = async (clave, claveGuardada) => {
   try {
-    return await bcrypt.compare(clave, claveguardada);
+    return await bcrypt.compare(clave, claveGuardada);
   } catch (e) {
     console.log(e);
   }

@@ -2,7 +2,7 @@
   <div class="container">
     <a class="navbar-brand" href="/">
       <i class="fas fa-link"></i>
-      Favorite Links
+      BienestApp
     </a>
     <button
       class="navbar-toggler"
@@ -28,26 +28,26 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Links
+              Padecimientos
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/links">All Links</a>
+              <a class="dropdown-item" href="/links">Lista</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/links/add">Add A Link</a>
+              <a class="dropdown-item" href="/links/add">Añadir</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
+            <a class="nav-link" href="/profile">Gestión de Usuario</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+            <a class="nav-link" href="/logout">Cerrar sesión</a>
           </li>
         {{else}}
           <li class="nav-item">
-            <a class="nav-link" href="/signin">SignIn</a>
+            <a class="nav-link" href="/signin">Inicio de sesión</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/signup">SignUp</a>
+            <a class="nav-link" href="/signup">Registrarse</a>
           </li>
         {{/if}}
       </ul>

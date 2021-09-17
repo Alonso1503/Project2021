@@ -8,45 +8,61 @@ router.get("/add", isLoggedIn, (req, res) => {
 });
 
 router.post("/add", isLoggedIn, async (req, res) => {
-  const { title, url, description } = req.body;
+  const { nombre, descripcion } = req.body;
   const newLink = {
-    title,
-    url,
-    description,
-    User_Id: req.user.Id,
+    nombre,
+    descripcion,
+    personaCedula: req.user.cedula,
   };
-  await pool.query("INSERT INTO links set ?", [newLink]);
-  req.flash("success", "Link actualizado correctamente");
+  await pool.query("INSERT INTO padecimiento set ?", [newLink]);
+  req.flash("success", "Datos procesados correctamente");
   res.redirect("/links");
 });
 
 router.get("/", isLoggedIn, async (req, res) => {
-  const links = await pool.query("SELECT * FROM links WHERE User_Id = ?", [
-    req.user.Id,
-  ]);
+  const links = await pool.query(
+    "SELECT * FROM padecimiento WHERE personaCedula = ?",
+    [req.user.cedula]
+  );
   res.render("links/list", { links });
 });
-router.get("/delete/:Id", isLoggedIn, async (req, res) => {
-  const { Id } = req.params;
-  await pool.query("DELETE FROM links WHERE ID = ?", [Id]);
+router.get("/emergencia", isLoggedIn, async (req, res) => {
+  const infoFunda = await pool.query("SELECT * FROM persona WHERE cedula = ?", [
+    req.user.cedula,
+  ]);
+  res.render("links/emergencia", { infoFunda });
+});
+router.get("/emergenciaConfirmada", isLoggedIn, async (req, res) => {
+  res.render("links/emergenciaConfirmada");
+});
+router.get("/delete/:padecimientoId", isLoggedIn, async (req, res) => {
+  const { padecimientoId } = req.params;
+  await pool.query("DELETE FROM padecimiento WHERE padecimientoId = ?", [
+    padecimientoId,
+  ]);
   req.flash("success", "Link eliminado correctamente");
   res.redirect("/links");
 });
-router.get("/edit/:Id", isLoggedIn, async (req, res) => {
-  const { Id } = req.params;
-  const links = await pool.query("SELECT * FROM links WHERE ID = ?", [Id]);
+router.get("/edit/:padecimientoId", isLoggedIn, async (req, res) => {
+  const { padecimientoId } = req.params;
+  const links = await pool.query(
+    "SELECT * FROM padecimiento WHERE padecimientoId = ?",
+    [padecimientoId]
+  );
   res.render("links/edit", { links: links[0] });
 });
-router.post("/edit/:Id", isLoggedIn, async (req, res) => {
-  const { Id } = req.params;
-  const { Title, Description, Url } = req.body;
+router.post("/edit/:padecimientoId", isLoggedIn, async (req, res) => {
+  const { padecimientoId } = req.params;
+  const { nombre, descripcion } = req.body;
   const updatedLink = {
-    Title,
-    Description,
-    Url,
+    nombre,
+    descripcion,
   };
 
-  await pool.query("UPDATE links set ? WHERE ID = ?", [updatedLink, Id]);
+  await pool.query("UPDATE padecimiento set ? WHERE padecimientoId = ?", [
+    updatedLink,
+    padecimientoId,
+  ]);
   req.flash("success", "Link editado correctamente");
   res.redirect("/links");
 });

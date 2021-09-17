@@ -4,37 +4,29 @@
 
       <div class="card">
         <div class="card-body">
-          <form action="/links/edit/{{links.Id}}" method="POST">
+          <form action="/links/edit/{{links.padecimientoId}}" method="POST">
             <div class="form-group my-4">
               <input
                 type="text"
-                value="{{links.Title}}"
-                name="Title"
+                value="{{links.nombre}}"
+                name="nombre"
                 class="form-control"
-                placeholder="Title"
+                placeholder="Nombre"
                 autofocus
               />
             </div>
-            <div class="form-group my-4">
-              <input
-                type="url"
-                value="{{links.Url}}"
-                name="Url"
-                class="form-control"
-                placeholder="URL"
-              />
-            </div>
+
             <div class="form-group my-4">
               <textarea
-                name="Description"
+                name="descripcion"
                 rows="2"
                 class="form-control"
-                placeholder="Description"
-              >{{links.Description}}</textarea>
+                placeholder="Descripción"
+              >{{links.descripcion}}</textarea>
             </div>
             <div class="form-group my-4">
               <button class="btn btn-success btn-block">
-                Save
+                Actualizar
               </button>
             </div>
           </form>
