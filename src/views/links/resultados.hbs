@@ -1,0 +1,50 @@
+
+<div class="container m-auto py-3">
+<table class="table table-dark my-3">
+  <thead>
+    <tr>
+      <th scope="col">Cédula</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Primer Apellido</th>
+      <th scope="col">Segundo Apellido</th>
+      <th scope="col">Tipo de sangre</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each infoPersonal}}
+    <tr>
+      <th scope="row">{{cedula}}</th>
+      <td>{{nombre}}</td>
+      <td>{{apellido1}}</td>
+      <td>{{apellido2}}</td>
+      <td>{{tipoDeSangre}}</td>
+      
+    </tr>
+    {{else}}
+    <th scope="row">No existe usuario</th>
+    {{/each}}
+  </tbody>
+</table >
+<table class="table table-dark my-3">
+  <thead>
+    <tr>
+      <th scope="col">Padecimiento</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each padecimientosPersonal}}
+    <tr>
+      <th scope="row">{{nombre}}</th>
+      <td>{{descripcion}}</td>
+      <td>{{timeago fecha}}</td>
+    </tr>
+    {{else}}
+    <th scope="row">Sin padecimientos</th>
+    {{/each}}
+    
+  </tbody>
+</table>
+<a href="/links/datos" class="btn btn-info">Buscar otro usuario</a>
+</div>

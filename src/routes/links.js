@@ -26,12 +26,39 @@ router.get("/", isLoggedIn, async (req, res) => {
   );
   res.render("links/list", { links });
 });
+router.get("/emergenciasOpe", isLoggedIn, async (req, res) => {
+  const emergen = await pool.query("SELECT * FROM emergencia");
+  res.render("links/emergenciasOpe", { emergen });
+});
 router.get("/emergencia", isLoggedIn, async (req, res) => {
   res.render("links/emergencia");
 });
+router.post("/datos", isLoggedIn, async (req, res) => {
+  const { cedula } = req.body;
+
+  const infoPersonal = await pool.query(
+    "SELECT * FROM persona WHERE cedula = ?",
+    [cedula]
+  );
+  const padecimientosPersonal = await pool.query(
+    "SELECT * FROM padecimiento WHERE personaCedula = ?",
+    [cedula]
+  );
+
+  res.render("links/resultados", { infoPersonal, padecimientosPersonal });
+});
+router.get("/datos", isLoggedIn, async (req, res) => {
+  res.render("links/datos");
+});
 
 router.post("/emergenciaConfirmada", isLoggedIn, async (req, res) => {
-  console.log(req.body);
+  const { x, y } = req.body;
+  const Datos = {
+    localizacionx: x,
+    localizaciony: y,
+    personaCedula: req.user.cedula,
+  };
+  await pool.query("INSERT INTO emergencia set ?", [Datos]);
   res.render("links/emergenciaConfirmada");
 });
 

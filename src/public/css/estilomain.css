@@ -1,0 +1,13 @@
+body {
+  background: #333;
+  background: -webkit-gradient(
+    radial,
+    center center,
+    120,
+    center center,
+    900,
+    from(#0682f7),
+    to(#940000)
+  );
+  background: -moz-radial-gradient(circle, #0682f7, #940000);
+}
