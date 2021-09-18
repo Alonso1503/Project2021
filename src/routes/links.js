@@ -27,14 +27,14 @@ router.get("/", isLoggedIn, async (req, res) => {
   res.render("links/list", { links });
 });
 router.get("/emergencia", isLoggedIn, async (req, res) => {
-  const infoFunda = await pool.query("SELECT * FROM persona WHERE cedula = ?", [
-    req.user.cedula,
-  ]);
-  res.render("links/emergencia", { infoFunda });
+  res.render("links/emergencia");
 });
-router.get("/emergenciaConfirmada", isLoggedIn, async (req, res) => {
+
+router.post("/emergenciaConfirmada", isLoggedIn, async (req, res) => {
+  console.log(req.body);
   res.render("links/emergenciaConfirmada");
 });
+
 router.get("/delete/:padecimientoId", isLoggedIn, async (req, res) => {
   const { padecimientoId } = req.params;
   await pool.query("DELETE FROM padecimiento WHERE padecimientoId = ?", [
