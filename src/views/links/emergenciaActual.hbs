@@ -1,15 +1,17 @@
-
-<div class="container mx-auto py-3">
-  <div id="map" style="width: 50%; height:50%;">
-
-</div>
+<div class="container vh-50" style="margin-top:3%;">
+  <div class="row justify-content-center h-75">
+    <div class="col">
+      <div id="map" style="width:100%; height:100%;">
+      </div>
+    </div>
+    <div class="col">
 <table class="table text-center table-dark my-3">
   <thead>
     <tr>
       <th scope="col">Cédula</th>
       <th scope="col">Nombre</th>
       <th scope="col">Primer Apellido</th>
-      <th scope="col">Segundo Apellido</th>
+      <th scope="col">Edad</th>
       <th scope="col">Tipo de sangre</th>
     </tr>
   </thead>
@@ -19,12 +21,20 @@
       <th scope="row">{{personaActual.cedula}}</th>
       <td>{{personaActual.nombre}}</td>
       <td>{{personaActual.apellido1}}</td>
-      <td>{{personaActual.apellido2}}</td>
+      <td>{{personaActual.fechaDeNacimiento}}</td>
       <td>{{personaActual.tipoDeSangre}}</td>
       
     </tr>
     </tbody>
-</table >
+</table>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <button onclick="goBack()" class="btn btn-info">Volver a emergencias</button>
+</div>
 <script
   defer
   async
@@ -59,4 +69,9 @@ defer>
     map: map,
   });
 }
+
+function goBack() {
+  window.history.back();
+}
+
 </script>

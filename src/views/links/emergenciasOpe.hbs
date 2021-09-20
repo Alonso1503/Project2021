@@ -1,5 +1,5 @@
 
-<div class="container p-4">
+<div class="container my-auto p-4 ">
   <div class="row">
     {{#each emergen}}
       <div class="col-md-3">
@@ -22,7 +22,11 @@
                 Atender
               </button>
             </div> 
-            </form>  
+            
+            </form> 
+            <a class="btn btn-success" href="/links/emergenciaespecifica/delete/{{codigo}}">
+              Atendida
+            </a> 
             </div>
           </div>
         </div>

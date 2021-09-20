@@ -68,6 +68,13 @@ router.post("/datos", isLoggedIn, async (req, res) => {
     "SELECT * FROM padecimiento WHERE personaCedula = ?",
     [cedula]
   );
+  var nacimiento = await pool.query(
+    "SELECT YEAR(fechaDeNacimiento) FROM persona WHERE cedula = ?",
+    [[cedula]]
+  );
+  var añoActual = new Date().getFullYear();
+  infoPersonal[0].fechaDeNacimiento =
+    añoActual - nacimiento[0]["YEAR(fechaDeNacimiento)"];
   res.render("links/resultados", { infoPersonal, padecimientosPersonal });
 });
 //
@@ -99,16 +106,34 @@ router.post("/emergenciaespecifica/:codigo", isLoggedIn, async (req, res) => {
     "SELECT * FROM emergencia WHERE codigo = ?",
     [codigo]
   );
+
   const personaActual = await pool.query(
     "SELECT * FROM persona WHERE cedula = ?",
     [emergenciaActual[0].personaCedula]
   );
-
+  var nacimiento = await pool.query(
+    "SELECT YEAR(fechaDeNacimiento) FROM persona WHERE cedula = ?",
+    [[emergenciaActual[0].personaCedula]]
+  );
+  var añoActual = new Date().getFullYear();
+  personaActual[0].fechaDeNacimiento =
+    añoActual - nacimiento[0]["YEAR(fechaDeNacimiento)"];
   res.render("links/emergenciaActual", {
     emergenciaActual: emergenciaActual[0],
     personaActual: personaActual[0],
   });
 });
+router.get(
+  "/emergenciaespecifica/delete/:codigo",
+  isLoggedIn,
+  async (req, res) => {
+    const { codigo } = req.params;
+    await pool.query("DELETE FROM emergencia WHERE codigo = ?", [codigo]);
+    req.flash("success", "Emergencia atendida exitosamente");
+    const emergen = await pool.query("SELECT * FROM emergencia");
+    res.render("links/emergenciasOpe", { emergen });
+  }
+);
 //
 
 module.exports = router;
