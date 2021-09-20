@@ -1,0 +1,62 @@
+
+<div class="container mx-auto py-3">
+  <div id="map" style="width: 50%; height:50%;">
+
+</div>
+<table class="table text-center table-dark my-3">
+  <thead>
+    <tr>
+      <th scope="col">Cédula</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Primer Apellido</th>
+      <th scope="col">Segundo Apellido</th>
+      <th scope="col">Tipo de sangre</th>
+    </tr>
+  </thead>
+  <tbody>
+      
+    <tr>
+      <th scope="row">{{personaActual.cedula}}</th>
+      <td>{{personaActual.nombre}}</td>
+      <td>{{personaActual.apellido1}}</td>
+      <td>{{personaActual.apellido2}}</td>
+      <td>{{personaActual.tipoDeSangre}}</td>
+      
+    </tr>
+    </tbody>
+</table >
+<script
+  defer
+  async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtLD2Vwdxasprf563-A4q_fqJgIzjxqLk&callback=initMap&language=es-419"
+></script>
+
+<script
+defer>
+   function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 100,
+    
+    center: { lat: {{emergenciaActual.localizaciony}}, lng: {{emergenciaActual.localizacionx}} },
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      position: google.maps.ControlPosition.TOP_CENTER,
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_CENTER,
+    },
+    scaleControl: true,
+    streetViewControl: true,
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.LEFT_TOP,
+    },
+    fullscreenControl: true,
+  });
+  const marker = new google.maps.Marker({
+    position: { lat: {{emergenciaActual.localizaciony}}, lng: {{emergenciaActual.localizacionx}} },
+    map: map,
+  });
+}
+</script>
