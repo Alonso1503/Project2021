@@ -11,6 +11,7 @@
       <th scope="col">Cédula</th>
       <th scope="col">Nombre</th>
       <th scope="col">Primer Apellido</th>
+      <th scope="col">Teléfono</th>
       <th scope="col">Edad</th>
       <th scope="col">Tipo de sangre</th>
     </tr>
@@ -21,6 +22,7 @@
       <th scope="row">{{personaActual.cedula}}</th>
       <td>{{personaActual.nombre}}</td>
       <td>{{personaActual.apellido1}}</td>
+      <td>{{personaActual.telefono}}</td>
       <td>{{personaActual.fechaDeNacimiento}}</td>
       <td>{{personaActual.tipoDeSangre}}</td>
       
@@ -32,8 +34,8 @@
 </div>
 
 
-<div class="container">
-  <button onclick="goBack()" class="btn btn-info">Volver a emergencias</button>
+<div class="container p-auto">
+  <button onclick="history.back()" class="btn btn-info ">Volver a emergencias</button>
 </div>
 <script
   defer
@@ -70,8 +72,6 @@ defer>
   });
 }
 
-function goBack() {
-  window.history.back();
-}
+
 
 </script>

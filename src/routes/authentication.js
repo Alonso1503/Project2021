@@ -22,6 +22,7 @@ router.get("/logout", (req, res) => {
   res.redirect("/signin");
 });
 router.get("/signup", (req, res) => {
+  console.log(req.body);
   res.render("auth/signup");
 });
 

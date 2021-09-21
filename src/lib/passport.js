@@ -47,7 +47,7 @@ passport.use(
         apellido2,
         fechaDeNacimiento,
         tipoDeSangre,
-        tipoDeUsuario,
+        telefono,
       } = req.body;
       const nuevoUsuario = {
         cedula,
@@ -57,7 +57,7 @@ passport.use(
         apellido2,
         fechaDeNacimiento,
         tipoDeSangre,
-        tipoDeUsuario,
+        telefono,
       };
       nuevoUsuario.clave = await helpers.encryptPassword(clave);
       const result = await pool.query("INSERT INTO persona SET ?", [
